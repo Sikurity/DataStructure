@@ -1,0 +1,10 @@
+*.vcxproj
+*.filters
+*.log
+*.pch
+*.tlog
+*.lastbuildstate
+*.obj
+*.idb
+*.pdb
+/test.cpp
