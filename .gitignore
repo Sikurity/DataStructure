@@ -331,3 +331,7 @@ ASALocalRun/
 stdafx.cpp
 stdafx.h
 targetver.h
+main.cpp
+*.sln
+*.vcxproj
+*.filters
