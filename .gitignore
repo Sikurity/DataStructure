@@ -335,3 +335,5 @@ main.cpp
 *.sln
 *.vcxproj
 *.filters
+DataStructure/DataStructure.xcodeproj/xcuserdata/mac.xcuserdatad/xcschemes/xcschememanagement.plist
+DataStructure/DataStructure.xcodeproj/project.pbxproj
