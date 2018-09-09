@@ -3,32 +3,67 @@
 
 #define INF 0x7FFFFFFF
 
-namespace lys {
+namespace lys {;
 
-	template <typename T>
-	void swap(T &a, T &b) {
+template <typename T>
+inline void SWAP(T &a, T &b) {
 
-		T t = a;
-		a = b;
-		b = t;
+	T t = a;
+	a = b;
+	b = t;
+}
+
+template <typename T>
+inline int partition(T list[], int l, int r) {
+	int m = (l + r) >> 1;
+
+	if (list[r] < list[l])
+		SWAP(list[r], list[l]);
+
+	if (list[m] < list[l])
+		SWAP(list[m], list[l]);
+
+	if (list[r] < list[m])
+		SWAP(list[r], list[m]);
+
+	T pivot = list[m];
+	int low = l - 1;
+	int high = r + 1;
+
+	while (true) {
+		while (list[++low] < pivot);
+		while (pivot < list[--high]);
+
+		if (high <= low)
+			break;
+
+		SWAP(list[low], list[high]);
 	}
 
-	int partition(int *arr, int left, int right);
-	void quicksort(int *arr, int left, int right);
+	return high;
+}
 
-	void dijkstra(int v, int src, int e);
+template <typename T>
+void quicksort(T list[], int l, int r) {
+	if (l < r) {
+		int p = partition(list, l, r);
+		quicksort(list, l, p);
+		quicksort(list, p + 1, r);
+	}
+}
 
-	struct DisjointSet {
-	private:
-		int *parent, *rank;
+struct DisjointSet {
+	static const int MAX_SET_SIZE;
+private:
+	int parent[1000], size[1000], rank[1000];
 
-	public:
-		DisjointSet(int n);
-		~DisjointSet();
+public:
+	DisjointSet();
+	~DisjointSet();
 
-		int find(int u);
-		void merge(int u, int v);
-	};
+	int find(int u);
+	void unify(int u, int v);
+};
 }
 
 #endif

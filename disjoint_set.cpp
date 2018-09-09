@@ -1,30 +1,36 @@
-#include "stdafx.h"
+#include "algorithm.h"
 
-int parent[1000], size[1000], rank[1000]; 
+namespace lys {;
 
-void init() { 
-	for (int i = 0; i < 1000; i++) { 
-		parent[i] = i; size[i] = 1; rank[i] = 0; 
-	} 
-} 
+const int DisjointSet::MAX_SET_SIZE = 1000;
 
-int find(int p) { 
-	if (parent[p] == p) 
-		return p; 
-	else 
-		return parent[p] = find(parent[p]); 
+DisjointSet::DisjointSet() {
+	for (int i = 0; i < MAX_SET_SIZE; i++)
+		parent[i] = i, size[i] = 1, rank[i] = 0;
 }
 
-void uni(int p, int q) { 
+int DisjointSet::find(int u) {
 
-	p = find(p); 
-	q = find(q); 
+	if (u != parent[u])
+		parent[u] = find(parent[u]);
 
-	if (rank[p] < rank[q]) 
-		parent[p] = q, size[q] += size[p]; 
-	else 
-		parent[q] = p, size[p] += size[q]; 
+	return parent[u];
+}
 
-	if (rank[p] == rank[q]) 
-		rank[p]++; 
+void DisjointSet::unify(int u, int v) {
+
+	u = find(u);
+	v = find(v);
+
+	if (u == v)
+		return;
+
+	if (rank[u] > rank[v])
+		SWAP(u, v);
+
+	parent[u] = v;
+
+	if (rank[u] == rank[v])
+		rank[v]++;
+}
 }

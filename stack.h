@@ -1,5 +1,3 @@
-#include "stdafx.h"
-
 #ifndef STACK_H
 #define STACK_H
 
@@ -15,12 +13,9 @@ namespace lys {
 	public:
 		Stack();
 
-		T top() throw(int);
-
-		void push(T d) throw(int);
-
-		void pop() throw(int);
-
+		T top();
+		void push(T d);
+		void pop();
 		bool isEmpty();
 	};
 }
@@ -33,7 +28,7 @@ namespace lys {
 	}
 
 	template <typename T>
-	T Stack<T>::top() throw(int) {
+	T Stack<T>::top() {
 
 		if (cur > -1)
 			return value[cur];
@@ -41,8 +36,8 @@ namespace lys {
 			throw - 1;
 	}
 
-	template <typename T = char>
-	void Stack<T>::push(T d) throw(int) {
+	template <typename T>
+	void Stack<T>::push(T d) {
 
 		if (cur < MAX_STACK_SIZE)
 			value[++cur] = d;
@@ -51,7 +46,7 @@ namespace lys {
 	}
 
 	template <typename T>
-	void Stack<T>::pop() throw(int) {
+	void Stack<T>::pop() {
 
 		if (cur > -1)
 			cur--;

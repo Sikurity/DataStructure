@@ -1,12 +1,12 @@
 #ifndef QUEUE_H
 #define QUEUE_H
 
-#define MAX_QUEUE_SIZE 1000
-
 namespace lys {
 
 	template <typename T>
 	struct Queue {
+
+		static const int MAX_QUEUE_SIZE;
 
 	private:
 
@@ -17,7 +17,7 @@ namespace lys {
 
 	public:
 
-		Queue();
+		Queue(): MAX_QUEUE_SIZE(100000);
 
 		void push(T d) throw(int);
 

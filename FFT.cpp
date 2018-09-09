@@ -1,7 +1,6 @@
 #define _USE_MATH_DEFINES
 
-#include "stdafx.h"
-#include <math.h>
+#include <cmath>
 #include <complex>
 #include <vector>
 #include <algorithm>
@@ -11,7 +10,7 @@ using std::complex;
 using std::max;
 
 template<typename T>
-class Complex<T> {
+class Complex {
 
 	T real;
 	T imaginary;

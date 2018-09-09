@@ -1,4 +1,5 @@
-#include "stdafx.h"
+#include <cstdio>
+#include <cstdlib>
 
 int BLACK = 0;
 int RED = 1;
