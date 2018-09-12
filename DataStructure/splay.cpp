@@ -151,17 +151,22 @@ int SplayTree::NthNode(int k) {
 	return nodes[x].key;
 }
 
-int max = 0;
+int max = -1;
 void SplayTree::InOrder(int root, int level) {
-	if (max < level)
-		max = level;
+	/*if (max < level)
+		max = level;*/
 	if (root) {
 		InOrder(nodes[root].l, level + 1);
-		int buf = nodes[root].key;
+		if (max < nodes[root].key)
+			max = nodes[root].key;
+		else {
+			cout << max << " > " << nodes[root].key << endl;
+			return;
+		}
 		InOrder(nodes[root].r, level + 1);
 	}
-	if (level == 0)
-		cout << max << endl;
+	/*if (level == 0)
+		cout << max << endl;*/
 }
 
 int SplayTree::GetRoot() {
