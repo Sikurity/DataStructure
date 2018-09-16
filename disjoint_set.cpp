@@ -1,4 +1,4 @@
-#include "algorithm.h"
+#include "disjoint_set.h"
 
 namespace lys {;
 

@@ -1,10 +1,3 @@
-#ifndef ALGORITHM_H
-#define ALGORITHM_H
-
-#define INF 0x7FFFFFFF
-
-namespace lys {;
-
 template <typename T>
 inline void SWAP(T &a, T &b) {
 
@@ -51,19 +44,3 @@ void quicksort(T list[], int l, int r) {
 		quicksort(list, p + 1, r);
 	}
 }
-
-struct DisjointSet {
-	static const int MAX_SET_SIZE;
-private:
-	int parent[1000], size[1000], rank[1000];
-
-public:
-	DisjointSet();
-	~DisjointSet();
-
-	int find(int u);
-	void unify(int u, int v);
-};
-}
-
-#endif
