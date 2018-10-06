@@ -141,9 +141,15 @@ void SplayTree::Delete(int key) {
 int SplayTree::NthNode(int k) {
 	int x = root;
 	while (1) {
-		while (nodes[x].l && nodes[nodes[x].l].cnt > k) x = nodes[x].l;
-		if (nodes[x].l) k -= nodes[nodes[x].l].cnt;
-		if (!k--) break;
+		while (nodes[x].l && nodes[nodes[x].l].cnt > k) 
+			x = nodes[x].l;
+		
+		
+		if (nodes[x].l) 
+			k -= nodes[nodes[x].l].cnt;
+		if (!k--) 
+			break;
+		
 		x = nodes[x].r;
 	}
 	Splay(x);
