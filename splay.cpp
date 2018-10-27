@@ -105,7 +105,7 @@ void SplayTree::Delete(int key) {
 	
 	int p = root;
 	if (nodes[p].l || nodes[p].r) {
-		if (nodes[p].r == 0) {		// only right child
+		if (nodes[p].l == 0) {		// only right child
 			root = nodes[p].l;
 			nodes[root].p = NULL;
 			// delete p;
