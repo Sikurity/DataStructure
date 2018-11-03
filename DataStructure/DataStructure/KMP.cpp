@@ -1,8 +1,8 @@
 #define _CRT_SECURE_NO_WARNINGS
 
 #include <string>
-#include "stack.h"
-#include "algorithm.h"
+#include "Stack.h"
+#include "Algorithm.h"
 
 #define MAX_STR_LENGTH 1000
 
