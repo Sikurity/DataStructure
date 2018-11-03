@@ -5,43 +5,58 @@ using namespace std;
 
 void SplayTree::Update(int x) {
     nodes[x].cnt = 1;
-    if (nodes[x].l) 
+    // if (nodes[x].l)
         nodes[x].cnt += nodes[nodes[x].l].cnt;
-    if (nodes[x].r) 
+    // if (nodes[x].r)
         nodes[x].cnt += nodes[nodes[x].r].cnt;
 }
 
 void SplayTree::Rotate(int x) {
     int p = nodes[x].p;
-    int b;
+    int g = nodes[p].p;
+    int c;
     if (x == nodes[p].l) {
-        nodes[p].l = b = nodes[x].r;
+        c = nodes[x].r;
+        nodes[p].l = c;
         nodes[x].r = p;
     }
     else {
-        nodes[p].r = b = nodes[x].l;
+        c = nodes[x].l;
+        nodes[p].r = c;
         nodes[x].l = p;
     }
-    nodes[x].p = nodes[p].p;
+    nodes[x].p = g;
     nodes[p].p = x;
-    if (b) 
-        nodes[b].p = p;
-    (nodes[x].p ? p == nodes[nodes[x].p].l ? nodes[nodes[x].p].l : nodes[nodes[x].p].r : root) = x;
+    
+    if (c)
+        nodes[c].p = p;
+    
+//    (g ? p == nodes[g].l ? nodes[g].l : nodes[g].r : root) = x;
+    if (g) {
+        if(p == nodes[g].l)
+            nodes[g].l = x;
+        else
+            nodes[g].r = x;
+    }
+    else
+        root = x;
     
     Update(p);
     Update(x);
 }
 
+// zig-zig, zig-zag
 void SplayTree::Splay(int x) {
-    while (nodes[x].p) {
+    while (nodes[x].p) { // when x is not root
         int p = nodes[x].p;
         int g = nodes[p].p;
-        if (g) Rotate((x == nodes[p].l) == (p == nodes[g].l) ? p : x);
-        Rotate(x);
+        if (g) // zig or zag
+            Rotate((x == nodes[p].l) == (p == nodes[g].l) ? p : x);
+        Rotate(x); // zig
     }
 }
 
-void SplayTree::Insert(int key) {
+bool SplayTree::Insert(int key) {
     int p = root;
 
     if (p) {
@@ -62,7 +77,7 @@ void SplayTree::Insert(int key) {
                 p = nodes[p].l;
             }
             else
-                return;
+                return false;
         }
         int x = ++last;
         (lr < 0 ? nodes[p].l : nodes[p].r) = x;
@@ -79,11 +94,14 @@ void SplayTree::Insert(int key) {
     }
     
     ++size;
+    return true;
 }
 
 bool SplayTree::Find(int key) {
     int p = root;
-    if (!p) return false;
+    if (!p)
+        return false;
+    
     while (p) {
         if (key == nodes[p].key) break;
         if (key < nodes[p].key) {
@@ -96,57 +114,53 @@ bool SplayTree::Find(int key) {
         }
     }
     Splay(p);
+    
     return key == nodes[p].key;
 }
 
-void SplayTree::Delete(int key) {
+bool SplayTree::Delete(int key) {
     if (!Find(key)) 
-        return;
+        return false;
     
     int p = root;
-    if (nodes[p].l || nodes[p].r) {
-        if (nodes[p].l == 0) {        // only right child
-            root = nodes[p].l;
-            nodes[root].p = NULL;
-            // delete p;
-        }
-        else if (nodes[p].r == 0) { // only left child
-            root = nodes[p].r;
-            nodes[root].p = NULL;
-            // delete p;
-        }
-        else {                        // both children
-            root = nodes[p].l;
-            nodes[root].p = NULL;
-            
+    int l = nodes[p].l;
+    int r = nodes[p].r;
+    if (l || r) {
+        if (l && r) { // both children
+            root = l;
             int x = root;
-            while (nodes[x].r) 
+            while (nodes[x].r)
                 x = nodes[x].r;
             
-            nodes[x].r = nodes[p].r;
-            nodes[nodes[p].r].p = x;
+            nodes[x].r = r;
+            nodes[r].p = x;
             
             Splay(x);
-            // delete p;
         }
+        else if (l) // only left child
+            root = l;
+        else if (r) // only right child
+            root = r;
+        
+        nodes[root].p = NULL;
     }
-    else {
-        // delete p;
+    else    // delete p;
         root = NULL;
-    }
 
     --size;
+    return true;
 }
 
 int SplayTree::NthNode(int k) {
     int x = root;
-    while (1) {
-        while (nodes[x].l && nodes[nodes[x].l].cnt > k) 
-            x = nodes[x].l;
+    while (true) {
+        int l = nodes[x].l;
         
+        while (l && nodes[l].cnt > k)
+            x = l;
         
-        if (nodes[x].l) 
-            k -= nodes[nodes[x].l].cnt;
+        if (l)
+            k -= nodes[l].cnt;
         if (!k--) 
             break;
         

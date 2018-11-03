@@ -18,9 +18,9 @@ class SplayTree {
 public:
 	int GetRoot();
 	int GetSize();
-	void Insert(int key);
+	bool Insert(int key);
 	bool Find(int key);
-	void Delete(int key);
+	bool Delete(int key);
 	int NthNode(int k);
 	void InOrder(int cur, int level = 0);
 };
