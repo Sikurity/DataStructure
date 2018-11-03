@@ -10,12 +10,12 @@
 #define Comparable_hpp
 
 struct Comparable {
-    int key;
-    int value;
-    
-    Comparable(int k, int v);
-    Comparable();
-    bool operator<(const Comparable &obj) const;
+	int key;
+	int value;
+
+	Comparable(int k, int v);
+	Comparable();
+	bool operator<(const Comparable &obj) const;
 };
 
 #endif /* Comparable_hpp */

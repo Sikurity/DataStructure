@@ -9,24 +9,24 @@
 #include "Pair.hpp"
 
 Pair::Pair(int first, int second) : first(first), second(second) {
-    
+
 }
 
 Pair::Pair() {
-    Pair(0, 0);
+	Pair(0, 0);
 }
 
 bool Pair::operator<(const Pair &p) const {
-    if (first == p.first)
-        return second < p.second;
-    
-    return first < p.first;
+	if (first == p.first)
+		return second < p.second;
+
+	return first < p.first;
 }
 
 bool Pair::operator==(const Pair &p) const {
-    return second == p.second && first == p.first;
+	return second == p.second && first == p.first;
 }
 
 bool Pair::operator<=(const Pair &p) const {
-    return (*this) < p || (*this) == p;
+	return (*this) < p || (*this) == p;
 }

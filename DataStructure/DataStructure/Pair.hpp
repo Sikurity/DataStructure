@@ -10,14 +10,14 @@
 #define Pair_hpp
 
 struct Pair {
-    int first;
-    int second;
-    
-    Pair(int first, int second);
-    Pair();
-    bool operator<(const Pair &p) const;
-    bool operator==(const Pair &p) const;
-    bool operator<=(const Pair &p) const;
+	int first;
+	int second;
+
+	Pair(int first, int second);
+	Pair();
+	bool operator<(const Pair &p) const;
+	bool operator==(const Pair &p) const;
+	bool operator<=(const Pair &p) const;
 };
 
 #endif /* Pair_hpp */

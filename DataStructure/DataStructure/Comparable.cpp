@@ -9,16 +9,16 @@
 #include "Comparable.hpp"
 
 Comparable::Comparable(int k, int v) : key(k), value(v) {
-    
+
 }
 
 Comparable::Comparable() {
-    Comparable(-1, -1);
+	Comparable(-1, -1);
 }
-    
+
 bool Comparable::operator<(const Comparable &obj) const {
-    if (value != obj.value)
-        return value < obj.value;
-    
-    return key < obj.key;
+	if (value != obj.value)
+		return value < obj.value;
+
+	return key < obj.key;
 }
