@@ -50,9 +50,9 @@ void SplayTree::Splay(int x) {
     while (nodes[x].p) { // when x is not root
         int p = nodes[x].p;
         int g = nodes[p].p;
-        if (g) // zig or zag
+        if (g) // zigzig then p, zigzag then x
             Rotate((x == nodes[p].l) == (p == nodes[g].l) ? p : x);
-        Rotate(x); // zig
+        Rotate(x); 
     }
 }
 
@@ -103,9 +103,11 @@ bool SplayTree::Find(int key) {
         return false;
     
     while (p) {
-        if (key == nodes[p].key) break;
+        if (key == nodes[p].key) 
+			break;
         if (key < nodes[p].key) {
-            if (!nodes[p].l) break;
+            if (!nodes[p].l) 
+				break;
             p = nodes[p].l;
         }
         else {
@@ -125,25 +127,26 @@ bool SplayTree::Delete(int key) {
     int p = root;
     int l = nodes[p].l;
     int r = nodes[p].r;
-    if (l || r) {
-        if (l && r) { // both children
-            root = l;
-            int x = root;
-            while (nodes[x].r)
-                x = nodes[x].r;
-            
-            nodes[x].r = r;
-            nodes[r].p = x;
-            
-            Splay(x);
-        }
-        else if (l) // only left child
-            root = l;
-        else if (r) // only right child
-            root = r;
         
-        nodes[root].p = NULL;
-    }
+	if (l) {
+		root = l;
+		nodes[root].p = NULL;
+
+		if (r) {
+			int x = root;
+			while (nodes[x].r)
+				x = nodes[x].r;
+
+			nodes[x].r = r;
+			nodes[r].p = x;
+
+			Splay(x);
+		}
+	}
+	else if (r) { // only right child
+		root = r;
+		nodes[root].p = NULL;
+	}
     else    // delete p;
         root = NULL;
 
@@ -156,8 +159,10 @@ int SplayTree::NthNode(int k) {
     while (true) {
         int l = nodes[x].l;
         
-        while (l && nodes[l].cnt > k)
+        while (l && nodes[l].cnt > k) {
             x = l;
+			l = nodes[x].l;
+		}
         
         if (l)
             k -= nodes[l].cnt;
