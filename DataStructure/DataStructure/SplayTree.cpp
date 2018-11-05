@@ -61,23 +61,21 @@ bool SplayTree::Insert(int key) {
 
     if (p) {
         int lr = 0;
-        while (true) {
-            if (nodes[p].key < key) {
-                if (!nodes[p].r) {
+        while (!lr) {
+            if (nodes[p].key == key)
+				return false; 
+			else if (nodes[p].key < key) {
+                if (!nodes[p].r)
                     lr = 1;
-                    break;
-                }
-                p = nodes[p].r;
+				else
+					p = nodes[p].r;
             }
-            else if (key < nodes[p].key) {
-                if (!nodes[p].l) {
+            else {
+                if (!nodes[p].l)
                     lr = -1;
-                    break;
-                }
-                p = nodes[p].l;
+				else
+					p = nodes[p].l;
             }
-            else
-                return false;
         }
         int x = ++last;
         (lr < 0 ? nodes[p].l : nodes[p].r) = x;
@@ -91,6 +89,7 @@ bool SplayTree::Insert(int key) {
         root = x;
         nodes[x].l = nodes[x].r = nodes[x].p = NULL;
         nodes[x].key = key;
+		Update(x);
     }
     
     ++size;
@@ -111,7 +110,8 @@ bool SplayTree::Find(int key) {
             p = nodes[p].l;
         }
         else {
-            if (!nodes[p].r) break;
+            if (!nodes[p].r) 
+				break;
             p = nodes[p].r;
         }
     }
@@ -127,11 +127,9 @@ bool SplayTree::Delete(int key) {
     int p = root;
     int l = nodes[p].l;
     int r = nodes[p].r;
-        
 	if (l) {
 		root = l;
 		nodes[root].p = NULL;
-
 		if (r) {
 			int x = root;
 			while (nodes[x].r)
@@ -155,6 +153,10 @@ bool SplayTree::Delete(int key) {
 }
 
 int SplayTree::NthNode(int k) {
+
+	if (k < 0 || size <= k)
+		return -1;
+
     int x = root;
     while (true) {
         int l = nodes[x].l;
@@ -173,31 +175,14 @@ int SplayTree::NthNode(int k) {
     }
     Splay(x);
 
-    return nodes[x].key;
+    return x;
 }
 
-static int depth = -1;
-void SplayTree::InOrder(int root, int level) {
-    /*if (depth < level)
-        depth = level;*/
-    if (root) {
-        InOrder(nodes[root].l, level + 1);
-        if (depth < nodes[root].key)
-            depth = nodes[root].key;
-        else {
-            cout << depth << " > " << nodes[root].key << endl;
-            return;
-        }
-        InOrder(nodes[root].r, level + 1);
+void SplayTree::InOrder(int x) {
+    if (x) {
+		x = x < 0 ? root : x;
+        InOrder(nodes[x].l);
+		// cout << nodes[x].key << endl;
+        InOrder(nodes[x].r);
     }
-    /*if (level == 0)
-        cout << depth << endl;*/
-}
-
-int SplayTree::GetRoot() {
-    return root;
-}
-
-int SplayTree::GetSize() {
-    return size;
 }
