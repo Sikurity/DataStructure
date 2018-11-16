@@ -53,16 +53,16 @@ void PriorityQueue<T>::pop() {
 	int r = l | 1;
 
 	while (l <= last) {
-		int p = l;
+		int c = l;
 		if (r <= last && datas[r] < datas[l])
-			p = r;
+			c = r;
 
-		if (datas[p] < datas[me])
-			swap(datas[p], datas[me]);
+		if (datas[c] < datas[me])
+			swap(datas[c], datas[me]);
 		else
 			break;
 
-		me = p;
+		me = c;
 		l = me << 1;
 		r = l | 1;
 	}

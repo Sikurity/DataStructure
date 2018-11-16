@@ -57,39 +57,40 @@ void SplayTree::Splay(int x) {
 }
 
 bool SplayTree::Insert(int key) {
-    int p = root;
 
-    if (p) {
+    if (root) {
+		int x = root;
+
         int lr = 0;
         while (!lr) {
-            if (nodes[p].key == key)
+            if (nodes[x].key == key)
 				return false; 
-			else if (nodes[p].key < key) {
-                if (!nodes[p].r)
+			else if (nodes[x].key < key) {
+                if (!nodes[x].r)
                     lr = 1;
 				else
-					p = nodes[p].r;
+					x = nodes[x].r;
             }
             else {
-                if (!nodes[p].l)
+                if (!nodes[x].l)
                     lr = -1;
 				else
-					p = nodes[p].l;
+					x = nodes[x].l;
             }
         }
-        int x = ++last;
-        (lr < 0 ? nodes[p].l : nodes[p].r) = x;
-        nodes[x].l = nodes[x].r = NULL;
-        nodes[x].p = p;
-        nodes[x].key = key;
-        Splay(x);
+
+        (lr < 0 ? nodes[x].l : nodes[x].r) = ++last;;
+        nodes[last].l = nodes[last].r = NULL;
+        nodes[last].p = x;
+        nodes[last].key = key;
+        Splay(last);
     }
     else {
-        int x = ++last;
-        root = x;
-        nodes[x].l = nodes[x].r = nodes[x].p = NULL;
-        nodes[x].key = key;
-		Update(x);
+        root = ++last;
+        nodes[root].l = nodes[root].r = NULL;
+		nodes[root].p = NULL;
+        nodes[root].key = key;
+		Update(root);
     }
     
     ++size;
@@ -97,36 +98,36 @@ bool SplayTree::Insert(int key) {
 }
 
 bool SplayTree::Find(int key) {
-    int p = root;
-    if (!p)
+    
+    if (!root)
         return false;
     
-    while (p) {
-        if (key == nodes[p].key) 
+	int x = root;
+    while (x) {
+        if (key == nodes[x].key) 
 			break;
-        if (key < nodes[p].key) {
-            if (!nodes[p].l) 
+        if (key < nodes[x].key) {
+            if (!nodes[x].l) 
 				break;
-            p = nodes[p].l;
+            x = nodes[x].l;
         }
         else {
-            if (!nodes[p].r) 
+            if (!nodes[x].r) 
 				break;
-            p = nodes[p].r;
+            x = nodes[x].r;
         }
     }
-    Splay(p);
+    Splay(x);
     
-    return key == nodes[p].key;
+    return key == nodes[x].key;
 }
 
 bool SplayTree::Delete(int key) {
     if (!Find(key)) 
         return false;
     
-    int p = root;
-    int l = nodes[p].l;
-    int r = nodes[p].r;
+    int l = nodes[root].l;
+    int r = nodes[root].r;
 	if (l) {
 		root = l;
 		nodes[root].p = NULL;

@@ -40,15 +40,18 @@ namespace lys {
 
 		if (isFull())
 			throw - 1;
-		else {
-			rear = (rear + 1) % MAX_QUEUE_SIZE;
-			datas[rear] = d;
-		}
+
+		rear = (rear + 1) % MAX_QUEUE_SIZE;
+		datas[rear] = d;
 	}
 
 	template <typename T>
 	T Queue<T>::front() {
-		return datas[rear];
+
+		if (isEmpty())
+			throw - 1;
+
+		return datas[front];
 	}
 
 	template <typename T>
@@ -56,10 +59,9 @@ namespace lys {
 
 		if (isEmpty())
 			throw -1;
-		else {
-			front = (front + 1) % MAX_QUEUE_SIZE;
-			return datas[front];
-		}
+
+		front = (front + 1) % MAX_QUEUE_SIZE;
+		return datas[front];
 	}
 
 	template <typename T>

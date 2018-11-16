@@ -16,6 +16,7 @@ namespace lys {
 		T top();
 		void push(T d);
 		void pop();
+		bool isFull();
 		bool isEmpty();
 	};
 }
@@ -24,40 +25,41 @@ namespace lys {
 
 	template <typename T>
 	Stack<T>::Stack() {
-		cur = -1;
+		cur = 0;
 	}
 
 	template <typename T>
 	T Stack<T>::top() {
-
-		if (cur > -1)
-			return value[cur];
-		else
+		if(isEmpty())
 			throw - 1;
+		
+		return value[cur - 1];
 	}
 
 	template <typename T>
-	void Stack<T>::push(T d) {
-
-		if (cur < MAX_STACK_SIZE)
-			value[++cur] = d;
-		else
+	void Stack<T>::push(T data) {
+		if(isFull())
 			throw - 1;
+			
+		value[cur++] = data;
 	}
 
 	template <typename T>
 	void Stack<T>::pop() {
-
-		if (cur > -1)
-			cur--;
-		else
+		if (isEmpty())
 			throw - 1;
+
+		--cur;
+	}
+
+	template <typename T>
+	bool Stack<T>::isFull() {
+		return cur == MAX_STACK_SIZE;
 	}
 
 	template <typename T>
 	bool Stack<T>::isEmpty() {
-
-		return cur == -1;
+		return cur == 0;
 	}
 }
 
