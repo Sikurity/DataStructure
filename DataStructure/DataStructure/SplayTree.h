@@ -2,6 +2,8 @@
 
 #include <cstdio>
 
+#define MAX_NODES_NUM 1000000
+
 class SplayTree {	
 	void Update(int x);
 	void Rotate(int x);
@@ -14,7 +16,7 @@ public:
 		int l, r, p;
 		int key;
 		int cnt;
-	} nodes[200000 + 1];
+	} nodes[MAX_NODES_NUM + 1];
 
 	bool Insert(int key);
 	bool Find(int key);

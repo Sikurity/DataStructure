@@ -61,7 +61,7 @@ namespace lys {
 			throw -1;
 
 		front = (front + 1) % MAX_QUEUE_SIZE;
-		return datas[front];
+		return;
 	}
 
 	template <typename T>

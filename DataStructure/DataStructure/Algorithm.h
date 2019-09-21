@@ -44,3 +44,37 @@ void quicksort(T list[], int l, int r) {
 		quicksort(list, p + 1, r);
 	}
 }
+
+template <typename T>
+int lower_bound(T *list, int l, int r, T val) {
+	int pos = r + 1;
+
+	while (l <= r) {
+		int m = (l + r) >> 1;
+		if (val <= list[m]) {
+			r = m - 1;
+			pos = m;
+		}
+		else
+			l = m + 1;
+	}
+
+	return pos;
+}
+
+template <typename T>
+int upper_bound(T *list, int l, int r, T val) {
+	int pos = l - 1;
+
+	while (l <= r) {
+		int m = (l + r) >> 1;
+		if (val >= list[m]) {
+			l = m + 1;
+			pos = m;
+		}
+		else
+			r = m - 1;
+	}
+
+	return pos + 1;
+}

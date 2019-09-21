@@ -13,31 +13,31 @@ bool lazy[1 << 18];
 
 void propagation(int node, int s, int e) {
     if (lazy[node]) {
-        tree[node] = (e - s + 1) - tree[node];
+        tree[node] = (e - s + 1) * lazy[node];
         if (s != e) {
-            lazy[node << 1] = !lazy[node << 1];
-            lazy[node << 1 | 1] = !lazy[node << 1 | 1];
+            lazy[node << 1] += lazy[node << 1];
+            lazy[node << 1 | 1] += lazy[node << 1 | 1];
         }
-        lazy[node] = false;
+        lazy[node] = 0;
     }
 }
 
-void update(int node, int s, int e, int l, int r) {
+void update(int node, int value, int s, int e, int l, int r) {
     propagation(node, s, e);
     
     if (e < l || r < s)
         return;
     
     if (l <= s && e <= r) {
-        lazy[node] = !lazy[node];
+        lazy[node] = value;
         propagation(node, s, e);
         return;
     }
     
     int m = (s + e) >> 1;
     
-    update(node << 1, s, m, l, r);
-    update(node << 1 | 1, m + 1, e, l, r);
+    update(node << 1, value, s, m, l, r);
+    update(node << 1 | 1, value, m + 1, e, l, r);
     
     tree[node] = tree[node << 1] + tree[node << 1 | 1];
 }
