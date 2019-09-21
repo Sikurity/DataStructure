@@ -54,7 +54,6 @@ void SplayTree::Splay(int x) {
 }
 
 bool SplayTree::Insert(int key) {
-
     if (root) {
 		int x = root;
         while (key != nodes[x].key) {
@@ -80,8 +79,7 @@ bool SplayTree::Insert(int key) {
     }
     else {
         root = ++last;
-
-		nodes[root] = { NULL, NULL, NULL, key, 1 };
+		nodes[last] = { NULL, NULL, NULL, key, 1 };
     }
     
     ++size;
@@ -144,16 +142,16 @@ bool SplayTree::Delete(int key) {
 
 int SplayTree::NthNode(int k) {
 
-	if (k < 0 || size <= k)
-		return -1;
+    if (k < 0 || size <= k)
+        return -1;
 
     int x = root;
     while (true) {
         int l = nodes[x].l;
         while (l && k < nodes[l].cnt) {
             x = l;
-			l = nodes[x].l;
-		}
+            l = nodes[x].l;
+        }
         
         if (l)
             k -= nodes[l].cnt;
@@ -170,7 +168,7 @@ int SplayTree::NthNode(int k) {
 int tt;
 void SplayTree::InOrder(int x) {
     if (x) {
-		x = x < 0 ? root : x;
+        x = x < 0 ? root : x;
         InOrder(nodes[x].l);
 		tt = nodes[x].key; // printf("%d ", key);
         InOrder(nodes[x].r);

@@ -8,7 +8,7 @@ namespace lys {
 	struct Stack {
 	private:
 		int cur;
-		T value[MAX_STACK_SIZE];
+		T value[MAX_STACK_SIZE + 1];
 
 	public:
 		Stack();
@@ -30,16 +30,16 @@ namespace lys {
 
 	template <typename T>
 	T Stack<T>::top() {
-		if(isEmpty())
-			throw - 1;
-		
-		return value[cur - 1];
+        if(isEmpty())
+            throw -1;
+        
+        return value[cur - 1];
 	}
 
 	template <typename T>
-	void Stack<T>::push(T data) {
-		if(isFull())
-			throw - 1;
+    void Stack<T>::push(T data) {
+        if(isFull())
+            throw -1;
 			
 		value[cur++] = data;
 	}

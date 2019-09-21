@@ -20,19 +20,19 @@
 template <typename T>
 struct PriorityQueue {
 private:
-	static const int MAX_QUEUE_SIZE = 100000;
-	T datas[MAX_QUEUE_SIZE + 1];
-	int last;
+    static const int MAX_QUEUE_SIZE = 100000;
+    T datas[MAX_QUEUE_SIZE + 1];
+    int last;
 
 public:
-	PriorityQueue();
+    PriorityQueue();
 
-	bool isFull();
-	bool isEmpty();
-	void push(T data);
-	void pop();
+    bool isFull();
+    bool isEmpty();
+    void push(T data);
+    void pop();
 
-	T getTop();
+    T getTop();
 };
 
 #include "PriorityQueue.tpp"

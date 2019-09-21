@@ -15,21 +15,21 @@ LL tree[MAX_N + 1];
 
 LL read(LL pos)
 {
-	LL ret = 0;
+    LL ret = 0;
 
-	while (pos > 0) {
-		ret += tree[pos];
-		pos -= (pos & -pos);
-	}
+    while (pos > 0) {
+        ret += tree[pos];
+        pos -= (pos & -pos);
+    }
 
-	return ret;
+    return ret;
 }
 
 void update(LL pos, LL value)
 {
-	while (pos <= MAX_N) {
-		tree[pos] += value;
-		pos += (pos & -pos);
-	}
+    while (pos <= MAX_N) {
+        tree[pos] += value;
+        pos += (pos & -pos);
+    }
 }
 
