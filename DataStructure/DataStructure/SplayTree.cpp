@@ -44,10 +44,10 @@ void SplayTree::Rotate(int x) {
 
 // zig-zig, zig-zag
 void SplayTree::Splay(int x) {
-    while (nodes[x].p) { // when x is not root
+    while (nodes[x].p) {        // until x is not root
         int p = nodes[x].p;
         int g = nodes[p].p;
-        if (g) // zigzig then p, zigzag then x
+        if (g)                  // zigzig then p, zigzag then x
             Rotate(((x == nodes[p].l) == (p == nodes[g].l)) ? p : x);
         Rotate(x); 
     }

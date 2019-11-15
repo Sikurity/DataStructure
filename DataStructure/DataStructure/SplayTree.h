@@ -2,6 +2,12 @@
 
 #define MAX_NODES_NUM 1000000
 
+struct Node {
+    int l, r, p;
+    int key;
+    int cnt;
+};
+
 class SplayTree {
     void Update(int x);
     void Rotate(int x);
@@ -9,12 +15,7 @@ class SplayTree {
 
 public:
     int root, last, size;
-
-    struct {
-        int l, r, p;
-        int key;
-        int cnt;
-    } nodes[MAX_NODES_NUM + 1];
+    Node nodes[MAX_NODES_NUM + 1];
 
     bool Insert(int key);
     bool Find(int key);

@@ -36,13 +36,12 @@ namespace lys {
 	}
 
 	template <typename T>
-	void Queue<T>::push(T d) throw(int) {
-
+	void Queue<T>::push(T data) throw(int) {
 		if (isFull())
 			throw - 1;
 
+		datas[rear] = data;
 		rear = (rear + 1) % MAX_QUEUE_SIZE;
-		datas[rear] = d;
 	}
 
 	template <typename T>
